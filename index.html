@@ -1,0 +1,42 @@
+<html>
+	<head>
+	    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" crossorigin="anonymous">
+
+        <script>
+            var lista = document.getElementById("lista");
+            fetch('http://127.0.0.1:8080/smartphones')
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                let ul = document.querySelector("ul");
+                for (i = 0; i < data.length; ++i) {
+                    let li = document.createElement('li');
+                    li.classList.add('list-group-item');
+                    let smartphone = data[i];
+                    let conteudoHtml = '<div class="media align-items-lg-center flex-column flex-lg-row p-3"><div class="media-body order-2 order-lg-1"><h5 class="mt-0 font-weight-bold mb-2">' + smartphone.nome + '</h5><p class="font-italic text-muted mb-0 small">Marca:' + smartphone.marca + '| Tamanho da Tela: ' + smartphone.tamanhoTela + '</p><p class="font-italic text-muted mb-0 small">Cor: ' + smartphone.cor + ' | Processador: ' + smartphone.processador + '</p><p class="font-italic text-muted mb-0 small">Memoria RAM: ' + smartphone.memoriaRam + ' | Espaco Interno: ' + smartphone.espacoInterno + ' </p><p class="font-italic text-muted mb-0 small">Data de Lancamento: ' + smartphone.dataLancamento + '</p><div class="d-flex align-items-center justify-content-between mt-1"><h6 class="font-weight-bold my-2">R$ ' + smartphone.preco + '</h6></div></div><img src=" ' + smartphone.urlImagem + '" width="200" class="ml-lg-5 order-1 order-lg-2"></div>'
+                    li.innerHTML = conteudoHtml;
+                    ul.appendChild(li);
+                }
+            });
+          </script>
+	</head>
+
+	<body>
+        <div class="container py-5">
+        <div class="row text-center text-white mb-5">
+            <div class="col-lg-7 mx-auto">
+                <h4 class="display-4">Listagem de Smartphones</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <ul id="lista" class="list-group shadow">
+                </ul>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
